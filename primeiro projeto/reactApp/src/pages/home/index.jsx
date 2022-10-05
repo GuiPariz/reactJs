@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './style.css'
 import { Card } from '../../componentes/Card'
 
@@ -6,9 +6,8 @@ export function Home() {
 
   const [studentName, setStudentName] = useState()
   const [students, setStudents] = useState([])  
-
+  const [user, setUser] = useState({name:'', avatar: ''})
   
-
   function addStudent() {
     const newStudent = {
       id:'',
@@ -22,13 +21,25 @@ export function Home() {
     setStudents(prevState => [ newStudent,...prevState])
   }
 
+  useEffect(()=>{
+    fetch('https://api.github.com/users/GuiPariz')
+    .then(response => response.json())
+    .then(data => {
+      setUser({
+        name: data.name,
+        avatar: data.avatar_url
+      })
+    })
+    .catch(e => console.error(e))
+  },[])
+
   return (
     <div className='container'>
       <header>
       <h1>Lista de presença</h1>
       <div className='user'>
-        <strong>Guilherme</strong>
-        <img src="https://github.com/GuiPariz.png" alt="Foto de Perfil" />
+        <strong>{user.name}</strong>
+        <img src={user.avatar} alt="Foto de Perfil" />
       </div>
 
       </header>
