@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { Trash, ThumbsUp } from "phosphor-react";
+import Avatar from "../avatar";
 
 export default function Comment() {
   return (
     <SBody>
       <aside>
-        <img src="https://pps.whatsapp.net/v/t61.24694-24/308690542_1235735647204348_9029192383439785161_n.jpg?ccb=11-4&oh=01_AdQQIQFJgDb9JZTqcA2IfuNeuyCrnXtGfgQTfHV7w0d9kw&oe=638343E7" />
+        <Avatar hasBorder={false} src="https://pps.whatsapp.net/v/t61.24694-24/308690542_1235735647204348_9029192383439785161_n.jpg?ccb=11-4&oh=01_AdQQIQFJgDb9JZTqcA2IfuNeuyCrnXtGfgQTfHV7w0d9kw&oe=638343E7"/>
       </aside>
       <main>
         <SBox>
@@ -43,11 +44,6 @@ const SBody = styled.div`
   background-color: transparent;
   gap: 1rem;
   margin-top: 1.5rem;
-  img{
-    height: 3.125rem;
-    width: 3.125rem;
-    border-radius: 8px;
-  }
   main{
     button{
       background-color: transparent;

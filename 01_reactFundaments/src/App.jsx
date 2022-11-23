@@ -30,4 +30,7 @@ const SBody = styled.div`
   display: grid;
   grid-template-columns: 256px 1fr;
   align-items: flex-start;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;

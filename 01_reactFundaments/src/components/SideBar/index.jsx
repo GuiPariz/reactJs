@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {PencilSimpleLine} from 'phosphor-react'
+import Avatar from "../avatar";
 
 export default function SideBar() {
   return (
@@ -8,7 +9,7 @@ export default function SideBar() {
         src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=40"
       />
       <SProfile>
-          <img src="https://github.com/GuiPariz.png" />
+          <Avatar hasBorder src="https://github.com/GuiPariz.png"/>
           <strong>Guilherme Pariz</strong>
           <span>Web Developer</span>
       </SProfile>
@@ -41,13 +42,6 @@ const SProfile=styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: calc(0px - 1.5rem - 6px );
-  img{
-    border-radius: 8px;
-    height: calc(3rem + 12px);
-    width: calc(3rem + 12px);
-    border: 4px solid var(--gray-800);
-    outline: 2px solid var(--green-500);
-  }
   strong{
     margin-top: 1rem;
     font-weight: 700;

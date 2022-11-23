@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Avatar from "../avatar";
 import Comment from "../comment";
 
 export default function Post() {
@@ -6,7 +7,7 @@ export default function Post() {
     <SCard>
       <SHeader>
         <SAuthor>
-          <img src="https://pps.whatsapp.net/v/t61.24694-24/311897119_532903698682915_7770589364732851892_n.jpg?ccb=11-4&oh=01_AdROPGOGQWaiEXcGGNBg-YDrtzopzWyYMqMryvmAS0du2Q&oe=63820935" />
+          <Avatar hasBorder src="https://pps.whatsapp.net/v/t61.24694-24/311897119_532903698682915_7770589364732851892_n.jpg?ccb=11-4&oh=01_AdROPGOGQWaiEXcGGNBg-YDrtzopzWyYMqMryvmAS0du2Q&oe=63820935" />
           <SAuthorInfo>
             <strong>Kevin Juan</strong>
             <span>Artist-Mc</span>
@@ -68,13 +69,6 @@ const SHeader = styled.header`
   }
 `;
 const SAuthor = styled.div`
-  img {
-    border-radius: 8px;
-    height: calc(3rem + 12px);
-    width: calc(3rem + 12px);
-    border: 4px solid var(--gray-800);
-    outline: 2px solid var(--green-500);
-  }
   display: flex;
   align-items: center;
   gap: 1rem;
