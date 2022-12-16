@@ -1,32 +1,56 @@
 import styled from "styled-components";
+import { format } from "date-fns";
+import ptBR from "date-fns/esm/locale/pt-BR/index.js";
 import Avatar from "../avatar";
 import Comment from "../comment";
+import { formatDistanceToNow } from "date-fns/esm";
+import { comments } from "../../App";
+import { useState } from "react";
 
-export default function Post() {
+export default function Post({ author, publishedAt, content }) {
+  const publishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  });
+  const [comments, setComments]=useState([1,2])
+
+  function handleAddComment(){
+    
+    console.log(comments)
+    setComments(...comments, comments.length +1)
+  }
   return (
     <SCard>
       <SHeader>
         <SAuthor>
-          <Avatar hasBorder src="https://pps.whatsapp.net/v/t61.24694-24/311897119_532903698682915_7770589364732851892_n.jpg?ccb=11-4&oh=01_AdROPGOGQWaiEXcGGNBg-YDrtzopzWyYMqMryvmAS0du2Q&oe=63820935" />
+          <Avatar hasBorder src={author.avatarUrl} />
           <SAuthorInfo>
-            <strong>Kevin Juan</strong>
-            <span>Artist-Mc</span>
+            <strong>{author.name}</strong>
+            <span> {author.role} </span>
           </SAuthorInfo>
         </SAuthor>
-        <time title="Publicado 16 de novembro às 11:03h">publicado há 1h</time>
+        <time
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
+        >
+          {publishedDateRelativeToNow}
+        </time>
       </SHeader>
       <SContent>
-        <p>Fala galeraa 👋</p>
-        <br />
-        <p>
-          Acabei de subir mais um projeto no meu portifa. É um projeto que fiz
-          no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀
-        </p>
-        <br />
-        <p>
-          👉 <a href="https://google.com">Sensei.Mc/doctorcare</a>
-        </p>
-        <br />
+        {content.map( line =>{
+          if(line.type === "paragraph"){
+            return <p>{line.content}</p>
+          } else if(line.type === "link"){
+            return <p><a href="#">{line.content}</a></p>
+          }
+        })}
         <p>
           <a href="https://google.com">#novoprojeto</a>{" "}
           <a href="https://lp.rocketseat.com.br/nlw">#nlw</a>{" "}
@@ -34,14 +58,16 @@ export default function Post() {
         </p>
       </SContent>
       <hr />
-      <SFeedback>
-        <label htmlFor="">Deixe seu feedback</label>
+      <SFeedback onSubmit={handleAddComment}>
+        <label >Deixe seu feedback</label>
         <textarea placeholder="deixe um comentário..." />
         <footer>
           <button type="submit">Publicar</button>
         </footer>
       </SFeedback>
-      <Comment/>
+      {comments.map(comment =>{
+        return <Comment />
+      })}
     </SCard>
   );
 }
@@ -91,6 +117,7 @@ const SAuthorInfo = styled.div`
 `;
 const SContent = styled.div`
   p {
+    margin: 1.5rem 0;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.635rem;
@@ -107,7 +134,7 @@ const SContent = styled.div`
     }
   }
 `;
-const SFeedback = styled.div`
+const SFeedback = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -134,7 +161,7 @@ const SFeedback = styled.div`
   }
   footer {
     visibility: hidden;
-    max-height:0;
+    max-height: 0;
     button {
       width: fit-content;
       height: fit-content;
